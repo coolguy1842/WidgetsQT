@@ -1,14 +1,16 @@
-#ifndef __CORE_WINDOW_HPP__
-#define __CORE_WINDOW_HPP__
+#ifndef __WIDGETS_WINDOW_HPP__
+#define __WIDGETS_WINDOW_HPP__
 
 #include <LayerShellQt/Window>
+#include <QScopedPointer>
 #include <QWidget>
 
-namespace Core::Widgets {
+namespace Opal::Widgets {
 
 class WindowPrivate;
 class Window : public QWidget {
     Q_OBJECT;
+    Q_DECLARE_PRIVATE(Opal::Widgets::Window);
 
 public:
     enum ExclusiveType {
@@ -19,11 +21,12 @@ public:
     Q_ENUMS(ExclusiveType);
 
     Q_PROPERTY(LayerShellQt::Window* layerShell READ layerShell);
-    Q_PROPERTY(Core::Widgets::Window::ExclusiveType exclusiveEdgeType READ exclusiveEdgeType WRITE setExclusiveEdgeType NOTIFY exclusiveEdgeTypeChanged);
-    Q_PROPERTY(Core::Widgets::Window::ExclusiveType exclusiveZoneType READ exclusiveZoneType WRITE setExclusiveZoneType NOTIFY exclusiveZoneTypeChanged);
+    Q_PROPERTY(Opal::Widgets::Window::ExclusiveType exclusiveEdgeType READ exclusiveEdgeType WRITE setExclusiveEdgeType NOTIFY exclusiveEdgeTypeChanged);
+    Q_PROPERTY(Opal::Widgets::Window::ExclusiveType exclusiveZoneType READ exclusiveZoneType WRITE setExclusiveZoneType NOTIFY exclusiveZoneTypeChanged);
 
-    ~Window();
+public:
     Window(QScreen* screen = nullptr, QWidget* parent = nullptr);
+    ~Window();
 
     LayerShellQt::Window* layerShell();
     const LayerShellQt::Window* layerShell() const;
@@ -43,10 +46,9 @@ protected:
     virtual void resizeEvent(QResizeEvent* event);
 
 private:
-    Q_DECLARE_PRIVATE(Window);
-    WindowPrivate* d_ptr;
+    QScopedPointer<WindowPrivate> d_ptr;
 };
 
-};  // namespace Core::Widgets
+};  // namespace Opal::Widgets
 
 #endif

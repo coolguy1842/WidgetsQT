@@ -2,7 +2,7 @@
     description = "Developer shell flake for clang";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; 
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
     };
 
     outputs = { self, nixpkgs, systems }: let
@@ -49,6 +49,7 @@
                 ];
 
                 buildInputs = with pkgs; [
+                    protobuf
                     qt6.full
                     kdePackages.layer-shell-qt
                     dart-sass
